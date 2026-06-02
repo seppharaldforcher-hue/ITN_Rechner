@@ -3,92 +3,295 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0f172a">
+
+<title>ITN Rechner</title>
+
 <link rel="manifest" href="manifest.json">
-<title>ITN Rechner - TC Steinhaus / TC Kapellen</title>
 
 <style>
-body{
-    font-family:Arial,sans-serif;
-    background:#0f172a;
-    color:white;
-    margin:0;
+
+*{
+    box-sizing:border-box;
 }
+
+body{
+    margin:0;
+    background:#040b16;
+    color:white;
+    font-family:Arial,sans-serif;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+    border-bottom:2px solid #ffe600;
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+}
+
+.title{
+    text-align:center;
+    flex:1;
+}
+
+.title h1{
+    margin:0;
+    font-size:40px;
+}
+
+.title h2{
+    margin-top:10px;
+    color:#ffe600;
+    font-size:20px;
+}
+
 .container{
-    max-width:500px;
+    max-width:900px;
     margin:auto;
     padding:20px;
 }
+
 .card{
-    background:#1e293b;
-    padding:20px;
-    border-radius:16px;
+    background:#0a1324;
+    border:1px solid #233047;
+    border-radius:24px;
+    padding:25px;
 }
+
+.inputs{
+    display:flex;
+    gap:20px;
+}
+
+.inputs div{
+    flex:1;
+}
+
+label{
+    display:block;
+    margin-bottom:10px;
+    font-size:22px;
+}
+
 input{
     width:100%;
-    padding:12px;
-    margin:8px 0;
-    border-radius:8px;
-    border:none;
+    padding:18px;
+    font-size:28px;
+    border-radius:14px;
+    border:2px solid #ffe600;
+    background:#07101e;
+    color:white;
 }
+
 button{
     width:100%;
-    padding:14px;
+    margin-top:25px;
+    padding:18px;
     border:none;
-    border-radius:8px;
+    border-radius:16px;
+    background:#ffe600;
+    color:black;
+    font-size:28px;
+    font-weight:bold;
     cursor:pointer;
-    font-size:16px;
 }
-.result{
+
+.section-title{
+    margin-top:35px;
+    margin-bottom:15px;
+    font-size:34px;
+    font-weight:bold;
+}
+
+.result-card{
+    border-radius:24px;
+    padding:25px;
+    margin-bottom:20px;
+}
+
+.win{
+    background:#08281b;
+    border:1px solid #18b45f;
+}
+
+.loss{
+    background:#2b0a11;
+    border:1px solid #ff3b3b;
+}
+
+.result-card h3{
+    margin-top:0;
+    font-size:34px;
+}
+
+.big-number{
+    font-size:54px;
+    font-weight:bold;
+}
+
+.change{
+    margin-top:10px;
+    font-size:26px;
+}
+
+.info{
+    background:#07182f;
+    border:1px solid #2563eb;
+    border-radius:24px;
+    padding:20px;
     margin-top:20px;
 }
+
+.info h3{
+    margin-top:0;
+}
+
+@media(max-width:700px){
+
+    .header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .inputs{
+        flex-direction:column;
+    }
+
+    .title h1{
+        font-size:32px;
+    }
+
+    .big-number{
+        font-size:42px;
+    }
+}
+
 </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="card">
+<div class="header">
+
+    <img src="icon-512.png" class="logo">
+
+    <div class="title">
+        <h1>ITN Rechner</h1>
         <h2>TC Steinhaus / TC Kapellen</h2>
-        <h3>ITN Rechner</h3>
-
-        <input id="my" placeholder="Meine ITN">
-        <input id="opp" placeholder="Gegner ITN">
-
-        <button onclick="calc()">Berechnen</button>
-
-        <div class="result" id="result"></div>
     </div>
+
+    <img src="icon-192.png" class="logo">
+
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="inputs">
+
+            <div>
+                <label>Meine ITN</label>
+                <input id="myITN" placeholder="z.B. 5,47">
+            </div>
+
+            <div>
+                <label>Gegner ITN</label>
+                <input id="oppITN" placeholder="z.B. 4,94">
+            </div>
+
+        </div>
+
+        <button onclick="calculate()">
+            BERECHNEN
+        </button>
+
+    </div>
+
+    <div class="section-title">
+        Ergebnis
+    </div>
+
+    <div id="results"></div>
+
+    <div class="info">
+        <h3>Hinweis</h3>
+        Die Berechnung erfolgt nach der offiziellen ITN-Formel des ÖTV
+        (International Tennis Number).
+    </div>
+
 </div>
 
 <script>
-function calc(){
-    const my=parseFloat(document.getElementById('my').value.replace(',','.'));
-    const opp=parseFloat(document.getElementById('opp').value.replace(',','.'));
 
-    if(isNaN(my)||isNaN(opp)){
-        alert('Bitte beide ITN Werte eingeben');
+function calculate(){
+
+    const my =
+        parseFloat(
+            document.getElementById('myITN').value.replace(',','.')
+        );
+
+    const opp =
+        parseFloat(
+            document.getElementById('oppITN').value.replace(',','.')
+        );
+
+    if(isNaN(my) || isNaN(opp)){
+        alert("Bitte beide ITN-Werte eingeben.");
         return;
     }
 
-    const winFactor=0.25/(1+2.595*Math.exp(3.5*(opp-my)));
-    const lossFactor=0.25/(1+2.595*Math.exp(3.5*(my-opp)));
+    const winFactor =
+        0.25 /
+        (1 + 2.595 * Math.exp(3.5 * (opp - my)));
 
-    const win=my-winFactor;
-    const loss=my+lossFactor;
+    const lossFactor =
+        0.25 /
+        (1 + 2.595 * Math.exp(3.5 * (my - opp)));
 
-    document.getElementById('result').innerHTML=`
-        <h3>Ergebnis</h3>
-        <p><b>ITN nach Sieg:</b> ${win.toFixed(3)}</p>
-        <p><b>Veränderung:</b> ${(-winFactor).toFixed(3)}</p>
+    const winITN = my - winFactor;
+    const lossITN = my + lossFactor;
 
-        <p><b>ITN nach Niederlage:</b> ${loss.toFixed(3)}</p>
-        <p><b>Veränderung:</b> +${lossFactor.toFixed(3)}</p>
+    document.getElementById("results").innerHTML = `
+
+        <div class="result-card win">
+            <h3>ITN nach Sieg</h3>
+
+            <div class="big-number">
+                ${winITN.toFixed(3)}
+            </div>
+
+            <div class="change">
+                Veränderung:
+                ${(-winFactor).toFixed(3)}
+            </div>
+        </div>
+
+        <div class="result-card loss">
+            <h3>ITN nach Niederlage</h3>
+
+            <div class="big-number">
+                ${lossITN.toFixed(3)}
+            </div>
+
+            <div class="change">
+                Veränderung:
+                +${lossFactor.toFixed(3)}
+            </div>
+        </div>
+
     `;
 }
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js');
+    navigator.serviceWorker.register('./service-worker.js');
 }
+
 </script>
 
 </body>
