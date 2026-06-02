@@ -440,8 +440,8 @@ input[type=number]{
 
         Die Berechnung erfolgt
         gemäß den ITN-Formeln
-        aus dem Excel-Rechner.
-
+        aus dem ITN AUSTRIA RULEBOOK
+des ÖTV.
     </div>
 
     <div class="footer">
@@ -677,6 +677,17 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
+const inputs = document.querySelectorAll("input");
+
+inputs.forEach(input => {
+
+    input.addEventListener("focus", function(){
+
+        this.select();
+
+    });
+
+});
         const fields =
             document.querySelectorAll(
                 "input"
