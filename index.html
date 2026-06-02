@@ -673,38 +673,9 @@ function calculate(){
    ENTER = NÄCHSTES FELD
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    const fields = document.querySelectorAll("input");
-
-    fields.forEach((field,index) => {
-
-        field.addEventListener("click", function(){
-
-            this.value = "";
-
-        });
-
-        field.addEventListener("keydown", (e) => {
-
-            if(e.key === "Enter"){
-
-                e.preventDefault();
-
-                if(fields[index + 1]){
-
-                    fields[index + 1].focus();
-
-                }else{
-
-                    calculate();
-
-                }
-            }
-        });
-    });
-});
-
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 /* =========================
    SERVICE WORKER
 ========================= */
