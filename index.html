@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<title>ITN Rechner - TC Steinhaus / TC Kapellen</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#0f172a;
+    color:white;
+    margin:0;
+}
+.container{
+    max-width:500px;
+    margin:auto;
+    padding:20px;
+}
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:16px;
+}
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:8px;
+    border:none;
+}
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+.result{
+    margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>TC Steinhaus / TC Kapellen</h2>
+        <h3>ITN Rechner</h3>
+
+        <input id="my" placeholder="Meine ITN">
+        <input id="opp" placeholder="Gegner ITN">
+
+        <button onclick="calc()">Berechnen</button>
+
+        <div class="result" id="result"></div>
+    </div>
+</div>
+
+<script>
+function calc(){
+    const my=parseFloat(document.getElementById('my').value.replace(',','.'));
+    const opp=parseFloat(document.getElementById('opp').value.replace(',','.'));
+
+    if(isNaN(my)||isNaN(opp)){
+        alert('Bitte beide ITN Werte eingeben');
+        return;
+    }
+
+    const winFactor=0.25/(1+2.595*Math.exp(3.5*(opp-my)));
+    const lossFactor=0.25/(1+2.595*Math.exp(3.5*(my-opp)));
+
+    const win=my-winFactor;
+    const loss=my+lossFactor;
+
+    document.getElementById('result').innerHTML=`
+        <h3>Ergebnis</h3>
+        <p><b>ITN nach Sieg:</b> ${win.toFixed(3)}</p>
+        <p><b>Veränderung:</b> ${(-winFactor).toFixed(3)}</p>
+
+        <p><b>ITN nach Niederlage:</b> ${loss.toFixed(3)}</p>
+        <p><b>Veränderung:</b> +${lossFactor.toFixed(3)}</p>
+    `;
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js');
+}
+</script>
+
+</body>
+</html>
