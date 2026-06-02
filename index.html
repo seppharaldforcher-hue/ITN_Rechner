@@ -11,44 +11,47 @@
 <style>
 
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    background:#040b16;
+    background:#030b16;
     color:white;
     font-family:Arial,sans-serif;
 }
 
-.header{
+.logo-row{
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
-    padding:20px;
-    border-bottom:2px solid #ffe600;
+    gap:25px;
+    padding-top:20px;
+    padding-bottom:15px;
 }
 
-.logo{
-    width:90px;
-    height:90px;
+.club-logo{
+    width:120px;
+    height:120px;
     object-fit:contain;
+    border-radius:12px;
 }
 
 .title{
     text-align:center;
-    flex:1;
+    margin-bottom:25px;
 }
 
 .title h1{
-    margin:0;
-    font-size:40px;
+    font-size:56px;
+    font-weight:bold;
 }
 
 .title h2{
     margin-top:10px;
     color:#ffe600;
-    font-size:20px;
+    font-size:26px;
 }
 
 .container{
@@ -58,9 +61,9 @@ body{
 }
 
 .card{
-    background:#0a1324;
-    border:1px solid #233047;
-    border-radius:24px;
+    background:#091425;
+    border:1px solid #22324a;
+    border-radius:25px;
     padding:25px;
 }
 
@@ -77,26 +80,27 @@ label{
     display:block;
     margin-bottom:10px;
     font-size:22px;
+    font-weight:bold;
 }
 
 input{
     width:100%;
+    background:#07111f;
+    border:2px solid #ffe600;
+    color:white;
+    border-radius:14px;
     padding:18px;
     font-size:28px;
-    border-radius:14px;
-    border:2px solid #ffe600;
-    background:#07101e;
-    color:white;
 }
 
 button{
     width:100%;
     margin-top:25px;
-    padding:18px;
-    border:none;
-    border-radius:16px;
     background:#ffe600;
     color:black;
+    border:none;
+    border-radius:16px;
+    padding:18px;
     font-size:28px;
     font-weight:bold;
     cursor:pointer;
@@ -104,30 +108,30 @@ button{
 
 .section-title{
     margin-top:35px;
-    margin-bottom:15px;
-    font-size:34px;
+    margin-bottom:20px;
+    font-size:38px;
     font-weight:bold;
 }
 
 .result-card{
-    border-radius:24px;
     padding:25px;
+    border-radius:25px;
     margin-bottom:20px;
 }
 
 .win{
-    background:#08281b;
-    border:1px solid #18b45f;
+    background:#08271a;
+    border:1px solid #0bb85d;
 }
 
 .loss{
-    background:#2b0a11;
-    border:1px solid #ff3b3b;
+    background:#2b0911;
+    border:1px solid #ff3a3a;
 }
 
 .result-card h3{
-    margin-top:0;
     font-size:34px;
+    margin-bottom:15px;
 }
 
 .big-number{
@@ -137,56 +141,73 @@ button{
 
 .change{
     margin-top:10px;
-    font-size:26px;
+    font-size:24px;
 }
 
 .info{
-    background:#07182f;
-    border:1px solid #2563eb;
-    border-radius:24px;
-    padding:20px;
+    background:#07192f;
+    border:1px solid #2b6fff;
+    border-radius:25px;
+    padding:25px;
     margin-top:20px;
 }
 
 .info h3{
-    margin-top:0;
+    margin-bottom:10px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    opacity:0.8;
+    font-size:14px;
 }
 
 @media(max-width:700px){
-
-    .header{
-        flex-direction:column;
-        gap:15px;
-    }
 
     .inputs{
         flex-direction:column;
     }
 
+    .club-logo{
+        width:90px;
+        height:90px;
+    }
+
     .title h1{
-        font-size:32px;
+        font-size:36px;
+    }
+
+    .title h2{
+        font-size:18px;
     }
 
     .big-number{
         font-size:42px;
     }
+
+    input{
+        font-size:22px;
+    }
+
+    button{
+        font-size:22px;
+    }
 }
 
 </style>
 </head>
+
 <body>
 
-<div class="header">
+<div class="logo-row">
+    <img src="icon-512.png" class="club-logo">
+    <img src="icon-192.png" class="club-logo">
+</div>
 
-    <img src="icon-512.png" class="logo">
-
-    <div class="title">
-        <h1>ITN Rechner</h1>
-        <h2>TC Steinhaus / TC Kapellen</h2>
-    </div>
-
-    <img src="icon-192.png" class="logo">
-
+<div class="title">
+    <h1>ITN Rechner</h1>
+    <h2>TC Steinhaus / TC Kapellen</h2>
 </div>
 
 <div class="container">
@@ -225,6 +246,10 @@ button{
         (International Tennis Number).
     </div>
 
+    <div class="footer">
+        TC Steinhaus / TC Kapellen
+    </div>
+
 </div>
 
 <script>
@@ -260,31 +285,32 @@ function calculate(){
     document.getElementById("results").innerHTML = `
 
         <div class="result-card win">
-            <h3>ITN nach Sieg</h3>
+
+            <h3>🏆 ITN nach Sieg</h3>
 
             <div class="big-number">
                 ${winITN.toFixed(3)}
             </div>
 
             <div class="change">
-                Veränderung:
-                ${(-winFactor).toFixed(3)}
+                Veränderung: ${(-winFactor).toFixed(3)}
             </div>
+
         </div>
 
         <div class="result-card loss">
-            <h3>ITN nach Niederlage</h3>
+
+            <h3>💔 ITN nach Niederlage</h3>
 
             <div class="big-number">
                 ${lossITN.toFixed(3)}
             </div>
 
             <div class="change">
-                Veränderung:
-                +${lossFactor.toFixed(3)}
+                Veränderung: +${lossFactor.toFixed(3)}
             </div>
-        </div>
 
+        </div>
     `;
 }
 
