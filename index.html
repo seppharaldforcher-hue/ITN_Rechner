@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,6 +23,10 @@ body{
     color:white;
     font-family:Arial,sans-serif;
 }
+
+/* =========================
+   LOGOS
+========================= */
 
 .logo-row{
     display:flex;
@@ -43,16 +49,20 @@ body{
 }
 
 .title h1{
-    margin:0;
-    font-size:48px;
+    font-size:52px;
     font-weight:bold;
 }
 
 .title h2{
-    margin-top:10px;
     color:#ffe600;
+    margin-top:10px;
     font-size:22px;
 }
+
+/* =========================
+   CONTAINER
+========================= */
+
 .container{
     max-width:900px;
     margin:auto;
@@ -66,9 +76,36 @@ body{
     padding:25px;
 }
 
+/* =========================
+   EINZEL / DOPPEL BUTTONS
+========================= */
+
+.mode-switch{
+    display:flex;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.mode-switch button{
+    flex:1;
+    height:60px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.active-mode{
+    background:#ffe600 !important;
+    color:black !important;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
 .inputs{
     display:flex;
     gap:20px;
+    margin-bottom:15px;
 }
 
 .inputs div{
@@ -78,7 +115,7 @@ body{
 label{
     display:block;
     margin-bottom:10px;
-    font-size:22px;
+    font-size:20px;
     font-weight:bold;
 }
 
@@ -92,9 +129,25 @@ input{
     font-size:28px;
 }
 
-button{
+/* Nummernfeld schöner */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+}
+
+input[type=number]{
+    appearance:textfield;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.calculate-btn{
     width:100%;
-    margin-top:25px;
+    margin-top:20px;
     background:#ffe600;
     color:black;
     border:none;
@@ -105,10 +158,14 @@ button{
     cursor:pointer;
 }
 
+/* =========================
+   ERGEBNIS
+========================= */
+
 .section-title{
-    margin-top:35px;
+    margin-top:30px;
     margin-bottom:20px;
-    font-size:38px;
+    font-size:34px;
     font-weight:bold;
 }
 
@@ -129,44 +186,43 @@ button{
 }
 
 .result-card h3{
-    font-size:34px;
     margin-bottom:15px;
+    font-size:30px;
 }
 
 .big-number{
-    font-size:54px;
+    font-size:50px;
     font-weight:bold;
 }
 
 .change{
     margin-top:10px;
-    font-size:24px;
+    font-size:22px;
 }
+
+/* =========================
+   INFO
+========================= */
 
 .info{
     background:#07192f;
     border:1px solid #2b6fff;
     border-radius:25px;
-    padding:25px;
+    padding:20px;
     margin-top:20px;
-}
-
-.info h3{
-    margin-bottom:10px;
 }
 
 .footer{
     text-align:center;
-    margin-top:25px;
+    margin-top:20px;
     opacity:0.8;
-    font-size:14px;
 }
 
-@media(max-width:700px){
+/* =========================
+   MOBILE
+========================= */
 
-    .inputs{
-        flex-direction:column;
-    }
+@media(max-width:700px){
 
     .club-logo{
         width:90px;
@@ -174,146 +230,501 @@ button{
     }
 
     .title h1{
-        font-size:36px;
+        font-size:34px;
     }
 
     .title h2{
         font-size:18px;
     }
 
+    .inputs{
+        flex-direction:column;
+    }
+
+    input{
+        font-size:24px;
+    }
+
     .big-number{
         font-size:42px;
     }
 
-    input{
-        font-size:22px;
-    }
-
-    button{
-        font-size:22px;
-    }
 }
 
 </style>
+
 </head>
 
 <body>
-
 <div class="logo-row">
-    <img src="icon-512.png" class="club-logo" alt="TC Kapellen">
-    <img src="icon-192.png" class="club-logo" alt="TC Steinhaus">
+
+    <img src="icon-512.png"
+         class="club-logo"
+         alt="TC Kapellen">
+
+    <img src="icon-192.png"
+         class="club-logo"
+         alt="TC Steinhaus">
+
 </div>
 
 <div class="title">
+
     <h1>ITN Rechner</h1>
-    <h2>TC Steinhaus / TC Kapellen</h2>
+
+    <h2>
+        TC Steinhaus / TC Kapellen
+    </h2>
+
 </div>
+
 <div class="container">
 
     <div class="card">
 
-        <div class="inputs">
+        <div class="mode-switch">
 
-            <div>
-                <label>Meine ITN</label>
-                <input id="myITN" placeholder="z.B. 5,47">
-            </div>
+            <button id="singleBtn"
+                    class="active-mode"
+                    onclick="showSingle()">
 
-            <div>
-                <label>Gegner ITN</label>
-                <input id="oppITN" placeholder="z.B. 4,94">
+                Einzel
+
+            </button>
+
+            <button id="doubleBtn"
+                    onclick="showDouble()">
+
+                Doppel
+
+            </button>
+
+        </div>
+
+        <!-- =====================
+             EINZEL
+        ====================== -->
+
+        <div id="singleMode">
+
+            <div class="inputs">
+
+                <div>
+
+                    <label>
+                        Meine ITN
+                    </label>
+
+                    <input
+                        id="singleMy"
+                        type="number"
+                        inputmode="decimal"
+                        step="0.001"
+                        placeholder="5.47">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Gegner ITN
+                    </label>
+
+                    <input
+                        id="singleOpp"
+                        type="number"
+                        inputmode="decimal"
+                        step="0.001"
+                        placeholder="4.94">
+
+                </div>
+
             </div>
 
         </div>
 
-        <button onclick="calculate()">
+        <!-- =====================
+             DOPPEL
+        ====================== -->
+
+        <div id="doubleMode"
+             style="display:none;">
+
+            <div class="inputs">
+
+                <div>
+
+                    <label>
+                        Meine ITN
+                    </label>
+
+                    <input
+                        id="doubleMy"
+                        type="number"
+                        inputmode="decimal"
+                        step="0.001">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Partner ITN
+                    </label>
+
+                    <input
+                        id="doublePartner"
+                        type="number"
+                        inputmode="decimal"
+                        step="0.001">
+
+                </div>
+
+            </div>
+
+            <div class="inputs">
+
+                <div>
+
+                    <label>
+                        Gegner 1 ITN
+                    </label>
+
+                    <input
+                        id="doubleOpp1"
+                        type="number"
+                        inputmode="decimal"
+                        step="0.001">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Gegner 2 ITN
+                    </label>
+
+                    <input
+                        id="doubleOpp2"
+                        type="number"
+                        inputmode="decimal"
+                        step="0.001">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+            class="calculate-btn"
+            onclick="calculate()">
+
             BERECHNEN
+
         </button>
 
     </div>
 
     <div class="section-title">
+
         Ergebnis
+
     </div>
 
     <div id="results"></div>
 
     <div class="info">
+
         <h3>Hinweis</h3>
-        Die Berechnung erfolgt nach der offiziellen ITN-Formel des ÖTV
-        (International Tennis Number).
+
+        Die Berechnung erfolgt
+        gemäß den ITN-Formeln
+        aus dem Excel-Rechner.
+
     </div>
 
     <div class="footer">
+
         TC Steinhaus / TC Kapellen
+
     </div>
 
 </div>
-
 <script>
+
+let mode = "single";
+
+/* =========================
+   MODUS UMSCHALTEN
+========================= */
+
+function showSingle(){
+
+    mode = "single";
+
+    document.getElementById("singleMode").style.display = "block";
+    document.getElementById("doubleMode").style.display = "none";
+
+    document.getElementById("singleBtn")
+        .classList.add("active-mode");
+
+    document.getElementById("doubleBtn")
+        .classList.remove("active-mode");
+}
+
+function showDouble(){
+
+    mode = "double";
+
+    document.getElementById("singleMode").style.display = "none";
+    document.getElementById("doubleMode").style.display = "block";
+
+    document.getElementById("doubleBtn")
+        .classList.add("active-mode");
+
+    document.getElementById("singleBtn")
+        .classList.remove("active-mode");
+}
+
+/* =========================
+   HILFSFUNKTION
+========================= */
+
+function getValue(id){
+
+    return parseFloat(
+        document.getElementById(id)
+            .value
+            .replace(",", ".")
+    );
+}
+
+/* =========================
+   BERECHNUNG
+========================= */
 
 function calculate(){
 
-    const my =
-        parseFloat(
-            document.getElementById('myITN').value.replace(',','.')
-        );
+    let winITN;
+    let lossITN;
 
-    const opp =
-        parseFloat(
-            document.getElementById('oppITN').value.replace(',','.')
-        );
+    let winFactor;
+    let lossFactor;
 
-    if(isNaN(my) || isNaN(opp)){
-        alert("Bitte beide ITN-Werte eingeben.");
-        return;
+    /* =====================
+       EINZEL
+    ===================== */
+
+    if(mode === "single"){
+
+        const my =
+            getValue("singleMy");
+
+        const opp =
+            getValue("singleOpp");
+
+        if(isNaN(my) || isNaN(opp)){
+
+            alert(
+                "Bitte beide ITN-Werte eingeben."
+            );
+
+            return;
+        }
+
+        winFactor =
+            0.25 /
+            (
+                1 +
+                2.595 *
+                Math.exp(
+                    3.5 * (opp - my)
+                )
+            );
+
+        lossFactor =
+            0.25 /
+            (
+                1 +
+                2.595 *
+                Math.exp(
+                    3.5 * (my - opp)
+                )
+            );
+
+        winITN = my - winFactor;
+        lossITN = my + lossFactor;
     }
 
-    const winFactor =
-        0.25 /
-        (1 + 2.595 * Math.exp(3.5 * (opp - my)));
+    /* =====================
+       DOPPEL
+    ===================== */
 
-    const lossFactor =
-        0.25 /
-        (1 + 2.595 * Math.exp(3.5 * (my - opp)));
+    if(mode === "double"){
 
-    const winITN = my - winFactor;
-    const lossITN = my + lossFactor;
+        const my =
+            getValue("doubleMy");
 
-    document.getElementById("results").innerHTML = `
+        const partner =
+            getValue("doublePartner");
+
+        const opp1 =
+            getValue("doubleOpp1");
+
+        const opp2 =
+            getValue("doubleOpp2");
+
+        if(
+            isNaN(my) ||
+            isNaN(partner) ||
+            isNaN(opp1) ||
+            isNaN(opp2)
+        ){
+
+            alert(
+                "Bitte alle vier ITN-Werte eingeben."
+            );
+
+            return;
+        }
+
+        const myTeam =
+            (my + partner) / 2;
+
+        const oppTeam =
+            (opp1 + opp2) / 2;
+
+        winFactor =
+            (
+                0.25 /
+                (
+                    1 +
+                    2.595 *
+                    Math.exp(
+                        3.5 *
+                        (oppTeam - myTeam)
+                    )
+                )
+            ) * 0.25;
+
+        lossFactor =
+            (
+                0.25 /
+                (
+                    1 +
+                    2.595 *
+                    Math.exp(
+                        3.5 *
+                        (myTeam - oppTeam)
+                    )
+                )
+            ) * 0.25;
+
+        winITN = my - winFactor;
+        lossITN = my + lossFactor;
+    }
+
+    /* =====================
+       AUSGABE
+    ===================== */
+
+    document.getElementById(
+        "results"
+    ).innerHTML = `
 
         <div class="result-card win">
 
-            <h3>🏆 ITN nach Sieg</h3>
+            <h3>
+                🏆 ITN nach Sieg
+            </h3>
 
             <div class="big-number">
                 ${winITN.toFixed(3)}
             </div>
 
             <div class="change">
-                Veränderung: ${(-winFactor).toFixed(3)}
+                Veränderung:
+                ${(-winFactor).toFixed(3)}
             </div>
 
         </div>
 
         <div class="result-card loss">
 
-            <h3>💔 ITN nach Niederlage</h3>
+            <h3>
+                💔 ITN nach Niederlage
+            </h3>
 
             <div class="big-number">
                 ${lossITN.toFixed(3)}
             </div>
 
             <div class="change">
-                Veränderung: +${lossFactor.toFixed(3)}
+                Veränderung:
+                +${lossFactor.toFixed(3)}
             </div>
 
         </div>
     `;
 }
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js');
+/* =========================
+   ENTER = NÄCHSTES FELD
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const fields =
+            document.querySelectorAll(
+                "input"
+            );
+
+        fields.forEach(
+            (field,index)=>{
+
+                field.addEventListener(
+                    "keydown",
+                    e=>{
+
+                        if(
+                            e.key==="Enter"
+                        ){
+
+                            e.preventDefault();
+
+                            if(
+                                fields[index+1]
+                            ){
+
+                                fields[index+1]
+                                    .focus();
+
+                            }else{
+
+                                calculate();
+
+                            }
+                        }
+                    }
+                );
+            }
+        );
+    }
+);
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
+if("serviceWorker" in navigator){
+
+    navigator.serviceWorker
+        .register(
+            "./service-worker.js"
+        );
 }
 
 </script>
