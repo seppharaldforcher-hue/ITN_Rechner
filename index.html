@@ -679,9 +679,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fields.forEach((field,index) => {
 
-        field.addEventListener("focus", function(){
+        field.addEventListener("click", function(){
 
-            this.select();
+            this.value = "";
 
         });
 
@@ -704,7 +704,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-
 
 /* =========================
    SERVICE WORKER
