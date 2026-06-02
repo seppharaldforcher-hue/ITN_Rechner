@@ -677,17 +677,50 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-const inputs = document.querySelectorAll("input");
+        const fields =
+            document.querySelectorAll("input");
 
-inputs.forEach(input => {
+        fields.forEach(
+            (field,index)=>{
 
-    input.addEventListener("focus", function(){
+                field.addEventListener(
+                    "focus",
+                    function(){
 
-        this.select();
+                        this.select();
 
-    });
+                    }
+                );
 
-});
+                field.addEventListener(
+                    "keydown",
+                    e=>{
+
+                        if(
+                            e.key==="Enter"
+                        ){
+
+                            e.preventDefault();
+
+                            if(
+                                fields[index+1]
+                            ){
+
+                                fields[index+1]
+                                    .focus();
+
+                            }else{
+
+                                calculate();
+
+                            }
+                        }
+                    }
+                );
+            }
+        );
+    }
+);
         const fields =
             document.querySelectorAll(
                 "input"
