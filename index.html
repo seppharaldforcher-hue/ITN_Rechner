@@ -673,91 +673,38 @@ function calculate(){
    ENTER = NÄCHSTES FELD
 ========================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-        const fields =
-            document.querySelectorAll("input");
+    const fields = document.querySelectorAll("input");
 
-        fields.forEach(
-            (field,index)=>{
+    fields.forEach((field,index) => {
 
-                field.addEventListener(
-                    "focus",
-                    function(){
+        field.addEventListener("focus", function(){
 
-                        this.select();
+            this.select();
 
-                    }
-                );
+        });
 
-                field.addEventListener(
-                    "keydown",
-                    e=>{
+        field.addEventListener("keydown", (e) => {
 
-                        if(
-                            e.key==="Enter"
-                        ){
+            if(e.key === "Enter"){
 
-                            e.preventDefault();
+                e.preventDefault();
 
-                            if(
-                                fields[index+1]
-                            ){
+                if(fields[index + 1]){
 
-                                fields[index+1]
-                                    .focus();
+                    fields[index + 1].focus();
 
-                            }else{
+                }else{
 
-                                calculate();
+                    calculate();
 
-                            }
-                        }
-                    }
-                );
+                }
             }
-        );
-    }
-);
-        const fields =
-            document.querySelectorAll(
-                "input"
-            );
+        });
+    });
+});
 
-        fields.forEach(
-            (field,index)=>{
-
-                field.addEventListener(
-                    "keydown",
-                    e=>{
-
-                        if(
-                            e.key==="Enter"
-                        ){
-
-                            e.preventDefault();
-
-                            if(
-                                fields[index+1]
-                            ){
-
-                                fields[index+1]
-                                    .focus();
-
-                            }else{
-
-                                calculate();
-
-                            }
-                        }
-                    }
-                );
-            }
-        );
-    }
-);
 
 /* =========================
    SERVICE WORKER
