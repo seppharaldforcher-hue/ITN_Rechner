@@ -2,6 +2,20 @@
 <html lang="de">
 
 <head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YVNSPVZNQP"></script>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){
+    dataLayer.push(arguments);
+}
+
+gtag('js', new Date());
+
+gtag('config', 'G-YVNSPVZNQP');
+</script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -505,6 +519,10 @@ function getValue(id){
 ========================= */
 
 function calculate(){
+
+gtag('event', 'berechnung', {
+  modus: mode
+});
 
     let winITN;
     let lossITN;
